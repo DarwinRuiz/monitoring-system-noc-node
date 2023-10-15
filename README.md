@@ -4,10 +4,11 @@ The objective of the project is to create a monitoring system with node and type
 
 # dev
 
-1. clonar el archivo .env.template a .env
-2. configurar las variables de entorno
+1. Clone the .env.template file to .env
+2. Configure environment variables
 
 ```
+MAILER_SERVICE=
 MAILER_EMAIL=
 MAILER_SECRET_KEY=
 ```

@@ -6,6 +6,8 @@ import { LogSeverityLevel } from "../../enums/log-severity-level.enum";
 
 export class CheckService implements CheckServiceUseCase {
 
+    private fileName: string = 'check-service.ts';
+
     constructor(private readonly logRepository: LogRepository, private readonly successCallback: SuccessCallback, private readonly errorCallback: ErrorCallback) { }
 
     public async execute(url: string): Promise<boolean> {
@@ -14,12 +16,12 @@ export class CheckService implements CheckServiceUseCase {
             const request = await fetch(url);
             if (!request.ok) throw new Error(`Error on check service ${url}`);
 
-            this.logRepository.saveLog(new LogEntity(`Service ${url} working`, LogSeverityLevel.LOW));
+            this.logRepository.saveLog(new LogEntity({ message: `Service ${url} working`, level: LogSeverityLevel.LOW, origin: this.fileName }));
             this.successCallback();
             return true;
         } catch (error) {
             const errorString: string = `${url} is not working, ${error}`;
-            this.logRepository.saveLog(new LogEntity(errorString, LogSeverityLevel.HIGH));
+            this.logRepository.saveLog(new LogEntity({ message: errorString, level: LogSeverityLevel.HIGH, origin: this.fileName }));
             this.errorCallback(errorString);
             return false;
         }

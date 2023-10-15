@@ -1,25 +1,26 @@
 import { LogSeverityLevel } from "../enums/log-severity-level.enum";
+import { LogEntityOptions } from "../interfaces/log-entity-options.interface";
 
 export class LogEntity {
     public level: LogSeverityLevel;
     public message: string;
     public createAt: Date;
+    public origin: string;
 
-    constructor(message: string, level: LogSeverityLevel) {
+    constructor(options: LogEntityOptions) {
+        const { level, message, origin, createAt = new Date() } = options
         this.level = level;
         this.message = message;
-        this.createAt = new Date();
+        this.createAt = createAt;
+        this.origin = origin;
     }
 
     public static fromJson = (json: string): LogEntity => {
         if (!this.validateStructureEntityFromJson(json)) throw new Error('The json does not meet the requirements to be an entity of "LogEntity"');
 
-        const { message, level, createAt } = JSON.parse(json);
+        const { message, level, origin, createAt } = JSON.parse(json);
 
-        const log = new LogEntity(message, level);
-        log.createAt = createAt;
-
-        return log;
+        return new LogEntity({ message, level, origin, createAt });
     }
 
     private static validateStructureEntityFromJson = (json: string): boolean => {
