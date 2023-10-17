@@ -11,4 +11,17 @@ The objective of the project is to create a monitoring system with node and type
 MAILER_SERVICE=
 MAILER_EMAIL=
 MAILER_SECRET_KEY=
+
+MONGO_URL=
+MONGO_DB_NAME=
+MONGO_USER=
+MONGO_PASS=
+
+SQL_SERVER_URL=
+```
+
+3. Initialize Docker databases with the following command
+
+```
+docker compose up -d
 ```

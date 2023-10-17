@@ -16,10 +16,19 @@ export class LogEntity {
     }
 
     public static fromJson = (json: string): LogEntity => {
+
+        json === '' ? '{}' : json;
+
         if (!this.validateStructureEntityFromJson(json)) throw new Error('The json does not meet the requirements to be an entity of "LogEntity"');
 
         const { message, level, origin, createAt } = JSON.parse(json);
 
+        return new LogEntity({ message, level, origin, createAt });
+    }
+
+    public static fromObject = (object: { [key: string]: any }): LogEntity => {
+        if (!this.validateStructureEntityFromJson(JSON.stringify(object))) throw new Error('The json does not meet the requirements to be an entity of "LogEntity"');
+        const { message, level, origin, createAt } = object;
         return new LogEntity({ message, level, origin, createAt });
     }
 
