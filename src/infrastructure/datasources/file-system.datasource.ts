@@ -49,6 +49,7 @@ export class FileSystemDatasource implements LogDatasource {
 
     private getLogsFromFiles = (path: string): LogEntity[] => {
         const contentFile: string = fs.readFileSync(path, 'utf-8');
-        return contentFile.split('\n').map(LogEntity.fromJson);
+        const contentFilter = contentFile.split('\n').filter((json: string) => json !== '')
+        return contentFilter.map(LogEntity.fromJson);
     }
 }

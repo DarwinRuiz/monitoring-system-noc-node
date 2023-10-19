@@ -25,3 +25,9 @@ SQL_SERVER_URL=
 ```
 docker compose up -d
 ```
+
+4. Excecute the following command for build the prisma client of the database
+
+```
+npx prisma migrate dev
+```
